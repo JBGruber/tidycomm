@@ -11,10 +11,6 @@
 ## @keywords internal
 icr_holstis_CR <- function(ucm) {
 
-  if (any(is.na(ucm))) {
-    return(NA)
-  }
-
   if (is.null(colnames(ucm))) {
     colnames(ucm) <- 1:ncol(ucm)
   }
@@ -38,11 +34,6 @@ icr_holstis_CR <- function(ucm) {
 ##
 ## @keywords internal
 icr_agreement <- function(ucm) {
-
-  if (any(is.na(ucm))) {
-    return(NA)
-  }
-
   sum(apply(ucm, 1, check_equal)) / dim(ucm)[1]
 }
 
@@ -55,6 +46,8 @@ icr_agreement <- function(ucm) {
 ##
 ## @keywords internal
 check_equal <- function(x, tol = NULL) {
+
+  x <- na.omit(x)
 
   if (missing(tol)) {
     tol <- 0
