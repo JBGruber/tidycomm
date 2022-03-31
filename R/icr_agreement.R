@@ -47,7 +47,10 @@ icr_agreement <- function(ucm) {
 ## @keywords internal
 check_equal <- function(x, tol = NULL) {
 
-  x <- na.omit(x)
+  # removing NAs leads to wrong results when it leaves only one value
+  if (length(na.omit(x)) > 1) {
+    x <- na.omit(x)
+  }
 
   if (missing(tol)) {
     tol <- 0
